@@ -1,0 +1,22 @@
+<div id="<%= dom_id ticket_status_log %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Observation:</strong>
+    <%= ticket_status_log.observation %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= ticket_status_log.user_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Ticket:</strong>
+    <%= ticket_status_log.ticket_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Previous status:</strong>
+    <%= ticket_status_log.previous_status_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">New status:</strong>
+    <%= ticket_status_log.new_status_id %>
+  </div>
+</div>

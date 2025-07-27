@@ -1,0 +1,28 @@
+<% content_for :title, "Team memberships" %>
+ 
+
+<%= render "shared/resource_table", 
+      title: "Miembros del Equipo", 
+      collection: @team_memberships,
+      new_path: new_team_membership_path,
+      headers: ["Usuario", "Equipo"] do |team_membership| %>
+
+    <tr class="hover:bg-gray-50 transition-colors duration-200">
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm font-semibold text-indigo-600"><%= team_membership.user.name %></div>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm text-gray-800"><%= team_membership.team.name %></div>
+      </td>
+  
+      <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+        <div class="flex items-center justify-end space-x-4">
+          <%= link_to "Ver", team_membership, class: "text-indigo-600 hover:text-indigo-900 font-semibold" %>
+          <%= link_to "Editar", edit_team_membership_path(team_membership), class: "text-blue-600 hover:text-blue-900 font-semibold" %>
+          <%= button_to "Eliminar", team_membership, method: :delete, class: "text-red-600 hover:text-red-900 bg-transparent border-none p-0 cursor-pointer font-semibold", data: { turbo_confirm: "¿Estás seguro?" } %>
+        </div>
+      </td>
+    </tr>
+<% end %>
+ 
+ 

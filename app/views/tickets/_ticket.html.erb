@@ -1,0 +1,110 @@
+
+<% content_for :title, "Detalle del Ticket ##{@ticket.id}" %>
+
+<div class="w-full max-w-7xl mx-auto">
+  <!-- Encabezado Principal -->
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-800"><%= @ticket.title %></h1>
+      <p class="text-sm text-gray-500 mt-1">Ticket #<%= @ticket.id %> creado por <%= @ticket.created_by.name %></p>
+    </div>
+    <div class="mt-4 md:mt-0">
+      <%= link_to "Editar Ticket", edit_ticket_path(@ticket), class: "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
+    </div>
+  </div>
+
+  <!-- Contenido del Ticket en Dos Columnas -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <!-- Columna Izquierda (Principal) -->
+    <div class="lg:col-span-2 space-y-8">
+      
+      <!-- Tarjeta de Descripción -->
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-3 mb-4">Descripción del Problema</h3>
+        <div class="prose max-w-none text-gray-600">
+          <%= @ticket.description %>
+        </div>
+      </div>
+
+      <!-- Tarjeta de Información de Contacto y Ubicación -->
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-3 mb-4">Detalles de Contacto y Ubicación</h3>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Nombre de Contacto</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.contact_name %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Teléfono de Contacto</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.contact_phone %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Grupo de Ubicación</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.location_group.description %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Ubicación</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.location.description %></dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Sección de Comentarios -->
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Historial y Comentarios</h3>
+        <div id="comments" class="space-y-4">
+          <%# Aquí se renderizarían los comentarios del ticket %>
+          <%# @ticket.ticket_comments.each do |comment| %>
+            <%# render comment %>
+          <%# end %>
+          <p class="text-gray-500 text-sm">No hay comentarios todavía.</p>
+        </div>
+        <div class="mt-6 border-t pt-4">
+          <%# Formulario para añadir un nuevo comentario %>
+          <p class="text-gray-600">Formulario para nuevo comentario aquí.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Columna Derecha (Metadatos) -->
+    <div class="lg:col-span-1 space-y-8">
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <dl class="space-y-4">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Estado</dt>
+            <dd class="mt-1 text-sm font-semibold text-white bg-blue-500 rounded-full px-3 py-1 inline-block"><%= @ticket.status.description %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Prioridad</dt>
+            <dd class="mt-1 text-sm font-semibold text-gray-900"><%= @ticket.priority %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Equipo Asignado</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.team.description %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Agente Asignado</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <%= @ticket.assigned_to.present? ? @ticket.assigned_to.name : content_tag(:span, "No asignado", class: "text-gray-400 italic") %>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Tipo de Servicio</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.service_type.description %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Fecha Programada</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.scheduled_date ? l(@ticket.scheduled_date, format: :long) : "No definida" %></dd>
+          </div>
+           <div>
+            <dt class="text-sm font-medium text-gray-500">Costo Estimado</dt>
+            <dd class="mt-1 text-lg font-bold text-green-600"><%= number_to_currency(@ticket.cost) %></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+  </div>
+</div>

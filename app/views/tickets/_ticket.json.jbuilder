@@ -1,0 +1,2 @@
+json.extract! ticket, :id, :title, :description, :priority, :type_ticket, :contact_name, :contact_phone, :scheduled_date, :arrived_date, :start_service_date, :end_service_date, :total_hour_service, :technical_observation, :longitude_arrived, :latitude_arrived, :longitude_end_work, :latitude_end_work, :cost, :team_id, :status_id, :created_by_id, :assigned_to_id, :location_id, :type_service_id, :location_group_id, :created_at, :updated_at
+json.url ticket_url(ticket, format: :json)

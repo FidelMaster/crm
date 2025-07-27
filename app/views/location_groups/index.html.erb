@@ -1,0 +1,23 @@
+<% content_for :title, "Grupos de Ubicación" %>
+
+<%= render "shared/resource_table", 
+      title: "Grupo de Ubicación", 
+      collection: @location_groups,
+      new_path: new_location_group_path, 
+      headers: ["Nombre"] do |location_group| %>
+
+  <tr class="hover:bg-gray-50 transition-colors duration-200">
+    <td class="px-6 py-4 whitespace-nowrap">
+      <div class="text-sm font-semibold text-indigo-600"><%= location_group.description %></div>
+    </td>
+
+    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+      <div class="flex items-center justify-end space-x-4">
+        <%= link_to "Ver", location_group, class: "text-indigo-600 hover:text-indigo-900 font-semibold" %>
+        <%= link_to "Editar", edit_location_group_path(location_group), class: "text-blue-600 hover:text-blue-900 font-semibold" %>
+        <%= button_to "Eliminar", location_group, method: :delete, class: "text-red-600 hover:text-red-900 bg-transparent border-none p-0 cursor-pointer font-semibold", data: { turbo_confirm: "¿Estás seguro?" } %>
+      </div>
+    </td>
+  </tr>
+
+<% end %>

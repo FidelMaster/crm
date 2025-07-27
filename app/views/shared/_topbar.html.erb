@@ -1,0 +1,21 @@
+
+<header class="flex items-center justify-between px-6 py-4 bg-white border-b-2 border-[#005480]">
+  <div class="flex items-center">
+    <!-- Botón de Hamburguesa (visible solo en móviles) -->
+    <button data-action="click->sidebar#toggle" class="text-gray-500 focus:outline-none md:hidden">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="flex items-center">
+    <% if user_signed_in? %>
+      <span class="text-gray-700 mr-4">Hola, <%= current_user.name || current_user.email %>!</span>
+      <%= link_to 'Cerrar Sesión', destroy_user_session_path, data: { "turbo-method": :delete }, class: "rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-500" %>
+    <% else %>
+      <%= link_to 'Iniciar Sesión', new_user_session_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-900" %>
+      <%= link_to 'Registrarse', new_user_registration_path, class: "ml-4 rounded-md bg-[#005480] px-3 py-2 text-sm font-medium text-white hover:bg-[#004370]" %>
+    <% end %>
+  </div>
+</header>

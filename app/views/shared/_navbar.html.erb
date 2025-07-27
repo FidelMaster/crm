@@ -1,0 +1,47 @@
+<nav class="bg-gray-800" data-controller="navbar">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="flex flex-1 items-center">
+        <%= link_to 'Helpdesk', root_path, class: "text-white text-xl font-bold" %>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <% if user_signed_in? %>
+          <!-- Menú Desplegable para Administración -->
+          <% if current_user.admin? %>
+            <div class="relative">
+              <button type="button" data-action="click->navbar#toggleAdminMenu" class="inline-flex items-center gap-x-1 rounded-md px-3 py-2 text-sm font-semibold text-white hover:bg-gray-700">
+                <span>Administración</span>
+                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+              </button>
+
+              <!-- Opciones del menú -->
+              <div data-navbar-target="adminMenu" class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden">
+                <div class="py-1">
+                  <%= link_to 'Tickets', tickets_path, class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100' %>
+                  <%= link_to 'Productos', products_path, class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100' %>
+                  <%= link_to 'Equipos', teams_path, class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100' %>
+                  <%= link_to 'Tipos de Servicio', service_types_path, class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100' %>
+                  <%= link_to 'Ubicaciones', locations_path, class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100' %>
+                  <%= link_to 'Grupos de Ubicaciones', location_groups_path, class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100' %>
+                  <%= link_to 'Estados de Ticket', ticket_statuses_path, class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Info del usuario y Logout -->
+          <span class="text-gray-300">Hola, <%= current_user.name || current_user.email %>!</span>
+          <%= link_to 'Cerrar Sesión', destroy_user_session_path, data: { "turbo-method": :delete }, class: "rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-500" %>
+        
+        <% else %>
+          <!-- Login y Registro -->
+          <%= link_to 'Iniciar Sesión', new_user_session_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" %>
+          <%= link_to 'Registrarse', new_user_registration_path, class: "ml-4 rounded-md bg-[#005480] px-3 py-2 text-sm font-medium text-white hover:bg-[#004370]" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

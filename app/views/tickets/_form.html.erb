@@ -1,0 +1,95 @@
+
+<div class="w-full max-w-4xl mx-auto" data-controller="ticket-form">
+  <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b border-gray-200 pb-4">
+      <%= ticket.new_record? ? "Crear Nuevo Ticket" : "Editar Ticket" %>
+    </h2>
+
+    <%= form_with(model: ticket, class: "space-y-8") do |form| %>
+      <% if ticket.errors.any? %>
+        <div id="error_explanation" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+          <p class="font-bold">Se encontraron <%= pluralize(ticket.errors.count, "error") %></p>
+          <ul class="mt-2 list-disc list-inside">
+            <% ticket.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- Sección de Asignación y Ubicación -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <%= form.label :team_id, "Equipo Asignado", class: "block text-sm font-medium text-gray-700" %>
+          <%= form.collection_select :team_id, @teams, :id, :description, 
+                { prompt: "Selecciona un equipo" }, 
+                { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+                  data: { action: "change->ticket-form#teamChanged", ticket_form_target: "teamSelect" } } %>
+        </div>
+        <div>
+          <%= form.label :service_type_id, "Tipo de Servicio", class: "block text-sm font-medium text-gray-700" %>
+          <%= form.select :service_type_id, [], 
+                { prompt: "Selecciona un equipo primero" }, 
+                { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm disabled:bg-gray-100",
+                  disabled: true,
+                  data: { ticket_form_target: "serviceTypeSelect" } } %>
+        </div>
+        <div>
+          <%= form.label :location_group_id, "Grupo de Ubicación", class: "block text-sm font-medium text-gray-700" %>
+          <%= form.collection_select :location_group_id, @location_groups, :id, :description, 
+                { prompt: "Selecciona un grupo" }, 
+                { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+                  data: { action: "change->ticket-form#locationGroupChanged", ticket_form_target: "locationGroupSelect" } } %>
+        </div>
+        <div>
+          <%= form.label :location_id, "Ubicación Específica", class: "block text-sm font-medium text-gray-700" %>
+          <%= form.select :location_id, [], 
+                { prompt: "Selecciona un grupo primero" }, 
+                { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm disabled:bg-gray-100",
+                  disabled: true,
+                  data: { ticket_form_target: "locationSelect" } } %>
+        </div>
+      </div>
+
+      <!-- Sección de Detalles del Ticket -->
+      <div class="border-t border-gray-200 pt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <%= form.label :title, "Título del Ticket", class: "block text-sm font-medium text-gray-700" %>
+            <%= form.text_field :title, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full" %>
+          </div>
+          <div>
+            <%= form.label :priority, "Prioridad", class: "block text-sm font-medium text-gray-700" %>
+            <%= form.select :priority, [["Baja", 0], ["Media", 1], ["Alta", 2]], 
+                  { prompt: "Selecciona una prioridad" }, 
+                  { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" } %>
+          </div>
+          <div class="md:col-span-2">
+            <%= form.label :description, "Descripción Detallada", class: "block text-sm font-medium text-gray-700" %>
+            <%= form.text_area :description, rows: 5, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sección de Contacto -->
+      <div class="border-t border-gray-200 pt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <%= form.label :contact_name, "Nombre de Contacto", class: "block text-sm font-medium text-gray-700" %>
+            <%= form.text_field :contact_name, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full" %>
+          </div>
+          <div>
+            <%= form.label :contact_phone, "Teléfono de Contacto", class: "block text-sm font-medium text-gray-700" %>
+            <%= form.text_field :contact_phone, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="flex items-center justify-end space-x-4 pt-8 border-t border-gray-200">
+        <%= link_to "Cancelar", tickets_path, class: "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
+        <%= form.submit "Crear Ticket", class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>

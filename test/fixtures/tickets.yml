@@ -1,0 +1,53 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  priority: 1
+  type_ticket: MyString
+  contact_name: MyString
+  contact_phone: MyString
+  scheduled_date: 2025-07-23 14:21:00
+  arrived_date: 2025-07-23 14:21:00
+  start_service_date: 2025-07-23 14:21:00
+  end_service_date: 2025-07-23 14:21:00
+  total_hour_service: 1.5
+  technical_observation: MyText
+  longitude_arrived: 9.99
+  latitude_arrived: 9.99
+  longitude_end_work: 9.99
+  latitude_end_work: 9.99
+  cost: 9.99
+  team: one
+  status: one
+  created_by: one
+  assigned_to: one
+  location: one
+  type_service: one
+  location_group: one
+
+two:
+  title: MyString
+  description: MyText
+  priority: 1
+  type_ticket: MyString
+  contact_name: MyString
+  contact_phone: MyString
+  scheduled_date: 2025-07-23 14:21:00
+  arrived_date: 2025-07-23 14:21:00
+  start_service_date: 2025-07-23 14:21:00
+  end_service_date: 2025-07-23 14:21:00
+  total_hour_service: 1.5
+  technical_observation: MyText
+  longitude_arrived: 9.99
+  latitude_arrived: 9.99
+  longitude_end_work: 9.99
+  latitude_end_work: 9.99
+  cost: 9.99
+  team: two
+  status: two
+  created_by: two
+  assigned_to: two
+  location: two
+  type_service: two
+  location_group: two
