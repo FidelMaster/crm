@@ -8,7 +8,7 @@
 
   <tr class="hover:bg-gray-50 transition-colors duration-200">
       <td class="px-6 py-4 whitespace-nowrap">
-        <div class="text-sm font-semibold text-indigo-600"><%= product.sku %></div>
+        <div class="text-sm text-gray-800"><%= product.sku %></div>
       </td>
       <td class="px-6 py-4 whitespace-nowrap">
         <div class="text-sm text-gray-800"><%= product.description %></div>
@@ -20,8 +20,7 @@
         <div class="flex items-center justify-end space-x-4">
           <%= link_to "Ver", product, class: "text-indigo-600 hover:text-indigo-900 font-semibold" %>
           <%= link_to "Editar", edit_product_path(product), class: "text-blue-600 hover:text-blue-900 font-semibold" %>
-          <%= button_to "Eliminar", product, method: :delete, class: "text-red-600 hover:text-red-900 bg-transparent border-none p-0 cursor-pointer font-semibold", data: { turbo_confirm: "¿Estás seguro?" } %>
-        </div>
+         </div>
       </td>
     </tr>
 

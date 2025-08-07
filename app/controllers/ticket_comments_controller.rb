@@ -21,18 +21,22 @@ class TicketCommentsController < ApplicationController
 
   # POST /ticket_comments or /ticket_comments.json
   def create
-    @ticket_comment = TicketComment.new(ticket_comment_params)
+    @ticket = Ticket.find(params[:ticket_id])
+    @ticket_comment = @ticket.ticket_comments.new(ticket_comment_params)
+    @ticket_comment.user = current_user
 
     respond_to do |format|
       if @ticket_comment.save
-        format.html { redirect_to @ticket_comment, notice: "Ticket comment was successfully created." }
-        format.json { render :show, status: :created, location: @ticket_comment }
+        format.turbo_stream
+        format.html { redirect_to @ticket, notice: "Comentario añadido." }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @ticket_comment.errors, status: :unprocessable_entity }
+        # Si hay un error, necesitamos recargar la variable para el formulario
+        format.html { render 'tickets/show', status: :unprocessable_entity }
       end
     end
   end
+
+
 
   # PATCH/PUT /ticket_comments/1 or /ticket_comments/1.json
   def update
@@ -65,6 +69,6 @@ class TicketCommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_comment_params
-      params.require(:ticket_comment).permit(:description, :ticket_id, :user_id)
+      params.require(:ticket_comment).permit(:description)
     end
 end

@@ -25,7 +25,6 @@
         <div class="flex items-center justify-end space-x-4">
           <%= link_to "Ver", service_type, class: "text-indigo-600 hover:text-indigo-900 font-semibold" %>
           <%= link_to "Editar", edit_service_type_path(service_type), class: "text-blue-600 hover:text-blue-900 font-semibold" %>
-          <%= button_to "Eliminar", service_type, method: :delete, class: "text-red-600 hover:text-red-900 bg-transparent border-none p-0 cursor-pointer font-semibold", data: { turbo_confirm: "¿Estás seguro?" } %>
         </div>
       </td>
     </tr>

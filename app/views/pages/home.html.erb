@@ -1,4 +1,97 @@
-<div>
-  <h1 class="font-bold text-4xl">Pages#home</h1>
-  <p>Find me in app/views/pages/home.html.erb</p>
+
+<div class="space-y-8">
+  <!-- Encabezado -->
+  <div>
+    <h1 class="text-3xl font-bold text-gray-800">Dashboard de Bienvenida</h1>
+    <p class="text-gray-500 mt-1">Aquí tienes un resumen de la actividad de tu helpdesk.</p>
+  </div>
+
+  <!-- Tarjetas de Estadísticas (KPIs) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Total Tickets -->
+    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-500">Total de Tickets</p>
+        <p class="text-3xl font-bold text-gray-900"><%= @total_tickets %></p>
+      </div>
+      <div class="bg-indigo-100 text-indigo-600 rounded-full p-3">
+        <!-- Icono (ejemplo usando SVG) -->
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+      </div>
+    </div>
+
+    <!-- Tickets Abiertos -->
+    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-500">Tickets Abiertos</p>
+        <p class="text-3xl font-bold text-gray-900"><%= @open_tickets_count %></p>
+      </div>
+      <div class="bg-blue-100 text-blue-600 rounded-full p-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+      </div>
+    </div>
+
+    <!-- Pendientes de Pago -->
+    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-500">Pendientes de Pago</p>
+        <p class="text-3xl font-bold text-gray-900"><%= @pending_payment_count %></p>
+      </div>
+      <div class="bg-yellow-100 text-yellow-600 rounded-full p-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01"></path></svg>
+      </div>
+    </div>
+
+        <% if current_user&.admin? %>
+    <!-- Ingresos Totales -->
+    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-500">Ingresos Totales</p>
+        <p class="text-3xl font-bold text-gray-900"><%= number_to_currency(@total_revenue) %></p>
+      </div>
+      <div class="bg-green-100 text-green-600 rounded-full p-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+      </div>
+    </div>
+       <% end  %>
+  </div>
+
+  <!-- Sección de Actividad Reciente -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Últimos Tickets Actualizados -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">Últimos Tickets Actualizados</h3>
+      <ul class="divide-y divide-gray-200">
+        <% @recent_tickets.each do |ticket| %>
+          <li class="py-3">
+            <%= link_to ticket_path(ticket), class: "block hover:bg-gray-50 p-2 rounded-md" do %>
+              <div class="flex items-center justify-between">
+                <p class="text-sm font-medium text-indigo-600 truncate"><%= ticket.title %></p>
+                <p class="text-xs text-gray-500"><%= time_ago_in_words(ticket.updated_at) %> ago</p>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">Estado: <%= ticket.status.description %></p>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Últimos Comentarios -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">Comentarios Recientes</h3>
+      <ul class="divide-y divide-gray-200">
+        <% @recent_comments.each do |comment| %>
+          <li class="py-3">
+            <%= link_to ticket_path(comment.ticket), class: "block hover:bg-gray-50 p-2 rounded-md" do %>
+              <p class="text-sm text-gray-800">
+                <span class="font-semibold"><%= comment.user.name %></span> comentó en 
+                <span class="font-semibold text-indigo-600">Ticket #<%= comment.ticket.id %></span>
+              </p>
+              <p class="text-sm text-gray-600 mt-1 truncate">"<%= comment.description %>"</p>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>

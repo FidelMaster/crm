@@ -1,0 +1,7 @@
+<%# 1. Añade el nuevo comentario a la lista %>
+<%= turbo_stream.append "ticket_comments_list", partial: "ticket_comments/ticket_comment", locals: { ticket_comment: @ticket_comment } %>
+
+<%# 2. Reemplaza el formulario con uno nuevo y vacío %>
+<%= turbo_stream.replace dom_id(@ticket, "new_comment") do %>
+  <%= render "ticket_comments/form", ticket: @ticket, ticket_comment: @ticket.ticket_comments.new %>
+<% end %>

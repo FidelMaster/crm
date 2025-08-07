@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    /* Estilos simples para el correo */
+    body { font-family: sans-serif; line-height: 1.5; color: #333; }
+    .container { max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+    .header { font-size: 24px; font-weight: bold; color: #2c3e50; }
+    .status-badge { display: inline-block; padding: 5px 10px; font-size: 14px; font-weight: bold; color: white; background-color: #3498db; border-radius: 15px; }
+    .button { display: inline-block; padding: 10px 20px; margin-top: 20px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="header">Actualización del Ticket #<%= @ticket.id %></p>
+    <p>Hola <%= @user.name %>,</p>
+    <p>Te informamos que el estado de tu ticket "<%= @ticket.title %>" ha sido actualizado.</p>
+    <p>
+      <strong>Nuevo Estado:</strong>
+      <span class="status-badge"><%= @ticket.status.description %></span>
+    </p>
+    <p>Puedes ver los detalles completos del ticket haciendo clic en el siguiente botón:</p>
+    <%= link_to 'Ver Ticket', ticket_url(@ticket), class: 'button' %>
+    <p>Gracias,<br>El equipo de soporte.</p>
+  </div>
+</body>
+</html>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_24_033011) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_07_142535) do
   create_table "location_groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "description"
     t.datetime "created_at", null: false
@@ -130,6 +130,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_24_033011) do
     t.bigint "location_group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "billable"
+    t.integer "billing_status"
+    t.text "invoice_details"
+    t.text "invoice_contact_name"
+    t.text "invoice_contact_ruc"
+    t.datetime "invoice_generate_date"
+    t.datetime "invoice_payment_date"
     t.index ["assigned_to_id"], name: "index_tickets_on_assigned_to_id"
     t.index ["created_by_id"], name: "index_tickets_on_created_by_id"
     t.index ["location_group_id"], name: "index_tickets_on_location_group_id"

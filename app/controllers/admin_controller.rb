@@ -3,6 +3,8 @@ class AdminController < ApplicationController
 
   def dashboard
     # Lógica para el dashboard
+ 
+
   end
 
   private

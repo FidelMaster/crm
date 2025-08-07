@@ -36,8 +36,17 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true # Muy útil para ver errores de envío en desarrollo
+
+  config.action_mailer.smtp_settings = {
+    address:              '10.88.0.25', # <-- REEMPLAZA con la IP que te dieron
+    port:                 25, # El puerto estándar para SMTP sin autenticación. Confírmalo si es diferente.
+    domain:               'guacalitodelaisla.com', # <-- REEMPLAZA con el dominio de tu empresa (ej. miempresa.com)
+    authentication:       nil, # No se usa autenticación
+    enable_starttls_auto: false # Generalmente false si no hay autenticación
+  }
 
   config.action_mailer.perform_caching = false
 

@@ -1,0 +1,7 @@
+<%# 1. Añade el nuevo producto a la lista %>
+<%= turbo_stream.append "ticket_products_list", partial: "ticket_products/ticket_product", locals: { ticket_product: @ticket_product } %>
+
+<%# 2. Reemplaza el formulario con uno nuevo y vacío %>
+<%= turbo_stream.replace dom_id(@ticket, "new_product") do %>
+  <%= render "ticket_products/form", ticket: @ticket, ticket_product: @ticket.ticket_products.new, products: @products %>
+<% end %>

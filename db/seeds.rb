@@ -40,4 +40,12 @@ TicketStatus.find_or_create_by!(code: 'closed') do |status|
   status.description = 'Cerrado'
 end
 
+TicketStatus.find_or_create_by!(code: 'canceled') do |status|
+  status.description = 'Cancelado'
+end
+
 puts "Estados de ticket creados/actualizados."
+
+puts "Creando grupo de Ubicaciones"
+
+

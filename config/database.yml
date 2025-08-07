@@ -15,13 +15,13 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: developer
   password: 'Developer2020..'
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /tmp/mysql.sock
 
 development:
   <<: *default
   database: crm_app_development
   username: developer # Tu usuario de MySQL en Windows
-
+  socket: /tmp/mysql.sock
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
@@ -52,5 +52,5 @@ test:
 production:
   <<: *default
   database: crm_app_production
-  username: crm_app
-  password: <%= ENV["CRM_APP_DATABASE_PASSWORD"] %>
+  username: developer
+  password: 'Dev1234'

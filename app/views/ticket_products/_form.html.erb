@@ -1,37 +1,20 @@
-<%= form_with(model: ticket_product, class: "contents") do |form| %>
-  <% if ticket_product.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(ticket_product.errors.count, "error") %> prohibited this ticket_product from being saved:</h2>
-
-      <ul class="list-disc ml-6">
-        <% ticket_product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= form_with(model: [ticket, ticket_product], id: dom_id(ticket, "new_product")) do |form| %>
+  <div class="mt-2">
+      <%= form.label :product_id, "Producto", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.collection_select :product_id, products, :id, :description, 
+            { prompt: "Selecciona un producto" }, 
+            { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" } %>
+  
+  </div>
+    <div class="mt-2">
+      <%= form.label :quantity, "Cantidad", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.number_field :quantity, in: 1..100, step: 1, value: 1, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
     </div>
-  <% end %>
-
-  <div class="my-5">
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": ticket_product.errors[:quantity].none?, "border-red-400 focus:outline-red-600": ticket_product.errors[:quantity].any?}] %>
+  <div class="mt-4">
+    <%= form.label :observation, "Observación (Opcional)", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :observation, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm", placeholder: "Ej: número de serie, detalles de instalación..." %>
   </div>
-
-  <div class="my-5">
-    <%= form.label :observation %>
-    <%= form.text_area :observation, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": ticket_product.errors[:observation].none?, "border-red-400 focus:outline-red-600": ticket_product.errors[:observation].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :ticket_id %>
-    <%= form.text_field :ticket_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": ticket_product.errors[:ticket_id].none?, "border-red-400 focus:outline-red-600": ticket_product.errors[:ticket_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :product_id %>
-    <%= form.text_field :product_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": ticket_product.errors[:product_id].none?, "border-red-400 focus:outline-red-600": ticket_product.errors[:product_id].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div class="mt-4 flex justify-end">
+    <%= form.submit "Añadir Producto", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 cursor-pointer" %>
   </div>
 <% end %>

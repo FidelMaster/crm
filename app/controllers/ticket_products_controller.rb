@@ -20,16 +20,18 @@ class TicketProductsController < ApplicationController
   end
 
   # POST /ticket_products or /ticket_products.json
-  def create
-    @ticket_product = TicketProduct.new(ticket_product_params)
+ def create
+    @ticket = Ticket.find(params[:ticket_id])
+    @ticket_product = @ticket.ticket_products.new(ticket_product_params)
+    @products = Product.where(is_active: true).order(:description)
 
     respond_to do |format|
       if @ticket_product.save
-        format.html { redirect_to @ticket_product, notice: "Ticket product was successfully created." }
-        format.json { render :show, status: :created, location: @ticket_product }
+        format.turbo_stream
+        format.html { redirect_to @ticket, notice: "Producto añadido." }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @ticket_product.errors, status: :unprocessable_entity }
+        # Manejo de errores (opcional, pero recomendado)
+        format.html { render 'tickets/show', status: :unprocessable_entity }
       end
     end
   end
@@ -65,6 +67,6 @@ class TicketProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_product_params
-      params.require(:ticket_product).permit(:quantity, :observation, :ticket_id, :product_id)
+      params.require(:ticket_product).permit(:product_id, :quantity, :observation)
     end
 end

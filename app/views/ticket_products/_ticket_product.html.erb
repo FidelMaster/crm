@@ -1,18 +1,12 @@
-<div id="<%= dom_id ticket_product %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Quantity:</strong>
-    <%= ticket_product.quantity %>
+<div id="<%= dom_id(ticket_product) %>" class="grid grid-cols-4 gap-4 items-center py-3">
+  <div class="col-span-2">
+    <p class="font-medium text-gray-900"><%= ticket_product.product.description %></p>
+    <p class="text-xs text-gray-500">SKU: <%= ticket_product.product.sku %></p>
   </div>
   <div>
-    <strong class="block font-medium mb-1">Observation:</strong>
-    <%= ticket_product.observation %>
+    <p class="text-sm text-gray-700">Cantidad: <%= ticket_product.quantity %></p>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Ticket:</strong>
-    <%= ticket_product.ticket_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Product:</strong>
-    <%= ticket_product.product_id %>
+  <div class="text-right">
+    <%# Aquí puedes añadir un botón para eliminar si lo necesitas %>
   </div>
 </div>

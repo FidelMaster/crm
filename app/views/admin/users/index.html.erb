@@ -1,0 +1,30 @@
+<% content_for :title, "Usuarios" %>
+
+
+<%= render "shared/resource_table", 
+       title: "Usuarios", 
+      collection: @users,
+      new_path: new_admin_user_path, 
+      headers: ["Nombre", "Correo", "Rol"] do |user| %>
+
+    <tr class="hover:bg-gray-50 transition-colors duration-200">
+          <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm text-gray-800"><%= user.name %></div>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm text-gray-800"><%= user.email %></div>
+      </td>
+
+        <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm text-gray-800"><%= user.role.capitalize %></div>
+      </td>
+  
+      <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+        <div class="flex items-center justify-end space-x-4">
+          <%= link_to "Editar", edit_admin_user_path(user), class: "text-blue-600 hover:text-blue-900 font-semibold" %>
+        </div>
+      </td>
+    </tr>
+<% end %>
+ 
+ 

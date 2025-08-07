@@ -13,6 +13,9 @@ class TeamMembershipsController < ApplicationController
   # GET /team_memberships/new
   def new
     @team_membership = TeamMembership.new
+
+    @agents = User.where(role: 1) 
+    @teams = Team.all
   end
 
   # GET /team_memberships/1/edit
