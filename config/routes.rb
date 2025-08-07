@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
     # Si el usuario ya está autenticado, la raíz será el dashboard.
     authenticated :user do
-      root 'dashboard#index', as: :authenticated_root
+      root 'pages#home', as: :authenticated_root
     end
   end
 

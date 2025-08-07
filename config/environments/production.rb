@@ -73,6 +73,18 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true # Muy útil para ver errores de envío en desarrollo
+
+  config.action_mailer.smtp_settings = {
+    address:              '10.88.0.225', # <-- REEMPLAZA con la IP que te dieron
+    port:                 25, # El puerto estándar para SMTP sin autenticación. Confírmalo si es diferente.
+    domain:               'guacalitodelaisla.com', # <-- REEMPLAZA con el dominio de tu empresa (ej. miempresa.com)
+    authentication:       nil, # No se usa autenticación
+    enable_starttls_auto: false # Generalmente false si no hay autenticación
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
