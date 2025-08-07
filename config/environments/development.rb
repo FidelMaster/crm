@@ -44,7 +44,9 @@ Rails.application.configure do
     address:              '10.88.0.35', # <-- REEMPLAZA con la IP que te dieron
     port:                 25, # El puerto estándar para SMTP sin autenticación. Confírmalo si es diferente.
     domain:               'guacalitodelaisla.com', # <-- REEMPLAZA con el dominio de tu empresa (ej. miempresa.com)
-    authentication:       nil, # No se usa autenticación
+    user_name:            'alertas@guacalitodelaisla.com',
+    password:             '',
+    authentication:       'plain', # No se usa autenticación
     enable_starttls_auto: false # Generalmente false si no hay autenticación
   }
 
