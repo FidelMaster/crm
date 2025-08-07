@@ -46,7 +46,7 @@ Rails.application.configure do
     domain:               'guacalitodelaisla.com', # <-- REEMPLAZA con el dominio de tu empresa (ej. miempresa.com)
     user_name:            'alertas@guacalitodelaisla.com',
     password:             '',
-    authentication:       'plain', # No se usa autenticación
+    authentication:       nil, # No se usa autenticación
     enable_starttls_auto: false # Generalmente false si no hay autenticación
   }
 
