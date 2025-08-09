@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f7; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .header { font-size: 24px; font-weight: bold; color: #2c3e50; }
+    .details-box { margin-top: 20px; padding: 15px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 5px; }
+    .detail-item dt { font-weight: bold; color: #4a5568; }
+    .detail-item dd { margin-left: 0; color: #1f2937; }
+    .button { display: inline-block; padding: 12px 24px; margin-top: 25px; background-color: #4f46e5; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="header">Nuevo Ticket en tu Área</p>
+    <p>Hola <%= @boss.name %>,</p>
+    <p>Se ha generado un nuevo ticket en el área de tu equipo (<%= @ticket.team.description %>). A continuación, los detalles:</p>
+    
+    <div class="details-box">
+      <div class="detail-item">
+        <dt>Ticket #:</dt>
+        <dd><%= @ticket.id %> - <%= @ticket.title %></dd>
+      </div>
+      <div class="detail-item" style="margin-top: 10px;">
+        <dt>Cliente:</dt>
+        <dd><%= @ticket.created_by.name %> (<%= @ticket.created_by.email %>)</dd>
+      </div>
+      <div class="detail-item" style="margin-top: 10px;">
+        <dt>Descripción:</dt>
+        <dd><%= @ticket.description %></dd>
+      </div>
+      <div class="detail-item" style="margin-top: 10px;">
+        <dt>Fecha de Creación:</dt>
+        <dd><%= l(@ticket.created_at, format: :long) %></dd>
+      </div>
+    </div>
+
+    <p>Por favor, asigna este ticket a un agente de tu equipo para su pronta atención.</p>
+    <%= link_to 'Ver y Asignar Ticket', ticket_url(@ticket), class: 'button' %>
+    
+    <p style="margin-top: 25px; font-size: 14px; color: #718096;">
+      Sistema de Helpdesk.
+    </p>
+  </div>
+</body>
+</html>

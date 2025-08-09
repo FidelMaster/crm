@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f7; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .header { font-size: 24px; font-weight: bold; color: #2c3e50; }
+    .cost { font-size: 28px; font-weight: bold; color: #16a34a; margin: 10px 0; }
+    .details-box { margin-top: 20px; padding: 15px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 5px; }
+    .action-prompt { margin-top: 25px; padding: 15px; background-color: #fefce8; border: 1px solid #fde68a; border-radius: 5px; text-align: center; }
+    .button { display: inline-block; padding: 12px 24px; margin-top: 15px; background-color: #4f46e5; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="header">Cotización para el Ticket #<%= @ticket.id %></p>
+    <p>Hola <%= @user.name %>,</p>
+    <p>Hemos generado una cotización para tu solicitud de servicio: "<%= @ticket.title %>".</p>
+    
+    <div class="details-box">
+      <p><strong>Fecha de Cotización:</strong> <%= l(@ticket.billing_date, format: :long) %></p>
+      <p><strong>Detalles:</strong></p>
+      <p><%= @ticket.invoice_details %></p>
+      <p style="margin-top: 15px;"><strong>Costo Total del Servicio:</strong></p>
+      <p class="cost"><%= number_to_currency(@ticket.cost) %></p>
+    </div>
+
+    <div class="action-prompt">
+      <p><strong>Siguiente Paso:</strong> Por favor, revisa la cotización. Deberás aprobarla para que podamos proceder con el servicio y posterior pago.</p>
+      <%= link_to 'Revisar y Responder', ticket_url(@ticket), class: 'button' %>
+    </div>
+    
+    <p style="margin-top: 25px; font-size: 14px; color: #718096;">
+      Gracias,<br>El equipo de soporte.
+    </p>
+  </div>
+</body>
+</html>

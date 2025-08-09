@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f7; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; }
+    .header { font-size: 24px; font-weight: bold; color: #2c3e50; }
+    .visit-date { font-size: 18px; font-weight: bold; color: #4f46e5; margin: 10px 0; padding: 10px; background-color: #eef2ff; border-radius: 5px; text-align: center; }
+    .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+    .detail-item dt { font-weight: bold; color: #4a5568; }
+    .detail-item dd { margin-left: 0; color: #1f2937; }
+    .button { display: inline-block; padding: 12px 24px; margin-top: 25px; background-color: #4f46e5; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="header">Nueva Asignación de Servicio</p>
+    <p>Hola <%= @agent.name %>,</p>
+    <p>Se te ha asignado un nuevo ticket de servicio. A continuación, los detalles:</p>
+    
+    <div>
+      <p style="font-weight: bold; color: #4a5568;">Fecha y Hora de la Visita:</p>
+      <p class="visit-date"><%= l(@ticket.scheduled_date, format: :long) %></p>
+    </div>
+
+    <div class="details-grid">
+      <div class="detail-item">
+        <dt>Cliente</dt>
+        <dd><%= @ticket.contact_name %></dd>
+      </div>
+      <div class="detail-item">
+        <dt>Teléfono</dt>
+        <dd><%= @ticket.contact_phone %></dd>
+      </div>
+      <div class="detail-item">
+        <dt>Ubicación</dt>
+        <dd><%= @ticket.location.description %>, <%= @ticket.location_group.description %></dd>
+      </div>
+      <div class="detail-item">
+        <dt>Tipo de Servicio</dt>
+        <dd><%= @ticket.type_service.description %></dd>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <p style="font-weight: bold; color: #4a5568;">Observaciones del Ticket:</p>
+      <div style="padding: 15px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 5px;">
+        <p><%= @ticket.description %></p>
+      </div>
+    </div>
+
+    <p>Por favor, revisa todos los detalles en la plataforma.</p>
+    <%= link_to 'Ver Detalles del Ticket', ticket_url(@ticket), class: 'button' %>
+    
+    <p style="margin-top: 25px; font-size: 14px; color: #718096;">
+      Gracias,<br>Sistema de Helpdesk.
+    </p>
+  </div>
+</body>
+</html>

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   # --- Recursos Principales ---
   resources :tickets do
     member do
+      get :download_pdf
       get :edit_billing
       patch :assign_agent
       patch :update_status

@@ -13,7 +13,7 @@
         <% unless @ticket.billable? %>
          <%= link_to "Generar Facturación", edit_billing_ticket_path(@ticket), class: "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
        <% end %>
-      <%= link_to "Exportar PDF", edit_ticket_path(@ticket), class: "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
+      <%= link_to "Exportar PDF", download_pdf_ticket_path(@ticket, format: :pdf), class: "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
      <% end %>
     </div>
   </div>
@@ -227,8 +227,6 @@
                <%= render @ticket_products %>
               <% end %>
         </div>
-
-   
       </div>
           <% end %>
 

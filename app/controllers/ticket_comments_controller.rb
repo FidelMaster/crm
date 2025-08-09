@@ -25,12 +25,26 @@ class TicketCommentsController < ApplicationController
     @ticket_comment = @ticket.ticket_comments.new(ticket_comment_params)
     @ticket_comment.user = current_user
 
-    respond_to do |format|
-      if @ticket_comment.save
+    if @ticket_comment.save
+      # notifica al agente asignado, y viceversa.
+      recipient = if current_user == @ticket.created_by
+                    @ticket.assigned_to
+                  else
+                    @ticket.created_by
+                  end
+      
+      # Envía el correo solo si hay un destinatario válido
+      if recipient.present?
+        TicketMailer.new_comment_notification(@ticket_comment, recipient).deliver_later
+      end
+
+      respond_to do |format|
         format.turbo_stream
         format.html { redirect_to @ticket, notice: "Comentario añadido." }
-      else
-        # Si hay un error, necesitamos recargar la variable para el formulario
+      end
+    else 
+      
+      respond_to do |format|
         format.html { render 'tickets/show', status: :unprocessable_entity }
       end
     end

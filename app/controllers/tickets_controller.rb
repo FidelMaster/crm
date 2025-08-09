@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: %i[show edit update destroy assign_agent edit_billing update_status update_billing approve_billing   reject_billing mark_as_paid ]
+  before_action :set_ticket, only: %i[show edit update destroy assign_agent edit_billing update_status update_billing approve_billing reject_billing mark_as_paid download_pdf ]
 
   # GET /tickets or /tickets.json
   def index
@@ -41,6 +41,17 @@ class TicketsController < ApplicationController
     # La variable @ticket es cargada por el before_action
   end
 
+  def download_pdf
+    # Crea una instancia de tu clase de PDF
+    pdf = TicketPdf.new(@ticket)
+    
+    # Envía el PDF generado al navegador
+    send_data pdf.render,
+              filename: "ticket_#{@ticket.id}_#{Time.current.strftime("%Y%m%d%H%M%S")}.pdf",
+              type: "application/pdf",
+              disposition: "inline" # 'inline' lo muestra en el navegador, 'attachment' lo descarga directamente
+  end
+
 
   def update_billing
     billing_attributes = billing_params.merge(
@@ -50,6 +61,8 @@ class TicketsController < ApplicationController
     )
 
     if @ticket.update(billing_attributes)
+      TicketMailer.billing_notification(@ticket).deliver_later
+
       redirect_to @ticket, notice: 'La información de facturación se ha guardado.'
     else
       render :edit_billing, status: :unprocessable_entity
@@ -79,6 +92,8 @@ class TicketsController < ApplicationController
         user: current_user # Guarda qué usuario hizo el cambio
       )
     end
+
+    TicketMailer.agent_assignment_notification(@ticket).deliver_later
 
     # Si la transacción fue exitosa, redirige con el mensaje de éxito.
     redirect_to @ticket, notice: 'Agente asignado y estado actualizado exitosamente.'
@@ -139,6 +154,12 @@ class TicketsController < ApplicationController
     @ticket.status = TicketStatus.find_by(code: 'open')
     respond_to do |format|
       if @ticket.save
+        # 1. Notificar al cliente
+      TicketMailer.new_ticket_notification_to_customer(@ticket).deliver_later
+      
+      # 2. Notificar al jefe del equipo
+      TicketMailer.new_ticket_notification_to_boss(@ticket).deliver_later
+
         format.html { redirect_to @ticket, notice: "Ticket was successfully created." }
         format.json { render :show, status: :created, location: @ticket }
       else
