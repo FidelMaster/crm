@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'reports/index'
   # --- Autenticación ---
   devise_for :users
 
@@ -61,4 +62,7 @@ Rails.application.routes.draw do
 
   # --- Health Check ---
   get "up" => "rails/health#show", as: :rails_health_check
+
+  get 'reports', to: 'reports#index'
+
 end

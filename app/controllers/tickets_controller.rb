@@ -13,6 +13,14 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1 or /tickets/1.json
   def show
+
+     # Si el usuario actual es un cliente, comprueba si es el creador del ticket.
+    if current_user.client? && @ticket.created_by != current_user
+      # Si no es el creador, redirígelo a la página principal con un mensaje de error.
+      redirect_to root_path, alert: "No tienes permiso para ver este ticket."
+      return # Detiene la ejecución del resto del método
+    end
+
     @agents = User.where(role: 1) 
 
     @ticket_products = @ticket.ticket_products.includes(:product).order("products.description")

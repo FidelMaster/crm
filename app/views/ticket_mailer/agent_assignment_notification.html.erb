@@ -39,7 +39,7 @@
       </div>
       <div class="detail-item">
         <dt>Tipo de Servicio</dt>
-        <dd><%= @ticket.type_service.description %></dd>
+        <dd><%= @ticket.service_type.description %></dd>
       </div>
     </div>
 
@@ -51,8 +51,8 @@
     </div>
 
     <p>Por favor, revisa todos los detalles en la plataforma.</p>
-    <%= link_to 'Ver Detalles del Ticket', ticket_url(@ticket), class: 'button' %>
-    
+    <%= link_to 'Revisar y Responder', "http://186.1.16.233/ticket/#{@ticket.id}", class: 'button' %>
+      
     <p style="margin-top: 25px; font-size: 14px; color: #718096;">
       Gracias,<br>Sistema de Helpdesk.
     </p>

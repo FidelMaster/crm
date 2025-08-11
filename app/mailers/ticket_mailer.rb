@@ -15,7 +15,7 @@ class TicketMailer < ApplicationMailer
     puts "sending new status email..."
 
     @ticket = ticket
-    @user = user_to_notify
+    @user = user_to_notify  
     mail(to: @user.email, subject: "Ticket ##{@ticket.id}: #{@ticket.title} | Actualizacion de estado")
   end
 

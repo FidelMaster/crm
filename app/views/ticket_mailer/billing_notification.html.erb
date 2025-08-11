@@ -19,7 +19,7 @@
     <p>Hemos generado una cotización para tu solicitud de servicio: "<%= @ticket.title %>".</p>
     
     <div class="details-box">
-      <p><strong>Fecha de Cotización:</strong> <%= l(@ticket.billing_date, format: :long) %></p>
+      <p><strong>Fecha de Cotización:</strong> <%= @ticket.invoice_generate_date %></p>
       <p><strong>Detalles:</strong></p>
       <p><%= @ticket.invoice_details %></p>
       <p style="margin-top: 15px;"><strong>Costo Total del Servicio:</strong></p>
@@ -28,7 +28,7 @@
 
     <div class="action-prompt">
       <p><strong>Siguiente Paso:</strong> Por favor, revisa la cotización. Deberás aprobarla para que podamos proceder con el servicio y posterior pago.</p>
-      <%= link_to 'Revisar y Responder', ticket_url(@ticket), class: 'button' %>
+      <%= link_to 'Revisar y Responder', "http://186.1.16.233/ticket/#{@ticket.id}", class: 'button' %>
     </div>
     
     <p style="margin-top: 25px; font-size: 14px; color: #718096;">
