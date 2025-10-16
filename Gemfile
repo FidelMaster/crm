@@ -41,6 +41,9 @@ gem "jbuilder"
 # Use Gem to authenticate users
 gem 'devise'
 
+#use gem to authenticate users with JWT
+gem 'devise-jwt'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

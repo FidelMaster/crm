@@ -58,6 +58,20 @@ Rails.application.routes.draw do
     resources :location_groups, only: [] do
       resources :locations, only: :index
     end
+
+    namespace :v1 do
+      post 'login', to: 'auth#login'
+
+      resources :products, only: [:index, :show]
+
+      resources :tickets, only: [:index, :show, :update] do
+        post 'add_comment', on: :member
+        post 'add_product', on: :member
+        post 'check_arrival', on: :member
+        post 'check_start_service', on: :member
+        post 'check_end_service', on: :member
+      end
+    end
   end
 
   # --- Health Check ---

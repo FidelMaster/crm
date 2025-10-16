@@ -196,7 +196,31 @@
                       </div>
                     <% end %>
                   </div>
+
+                           <div>
+            <dt class="text-sm font-medium text-gray-500">Fecha LLegada Agente</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.arrived_date ? l(@ticket.arrived_date, format: :long) : "No definida" %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Fecha/Hora Inicio Trabajo</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.start_service_date ? l(@ticket.start_service_date, format: :long) : "No definida" %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Fecha/Hora Fin Trabajo</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.end_service_date ? l(@ticket.end_service_date, format: :long) : "No definida" %></dd>
+          </div>
+
+              <div>
+            <dt class="text-sm font-medium text-gray-500">Horas Totales de Servicio</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.total_hour_service ? @ticket.total_hour_service : "No definida" %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Observaciones Tecnicas</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @ticket.technical_observation ? @ticket.technical_observation : "No definida" %></dd>
+          </div>
                 </div>
+
+                  
               <% end %>
           </div>
           <div>
@@ -207,11 +231,50 @@
             <dt class="text-sm font-medium text-gray-500">Fecha Programada</dt>
             <dd class="mt-1 text-sm text-gray-900"><%= @ticket.scheduled_date ? l(@ticket.scheduled_date, format: :long) : "No definida" %></dd>
           </div>
-           
+ 
         </dl>
       </div>
 
        <% if current_user&.admin? %>
+
+       <!-- Tarjeta de Ubicación del Agente -->
+<% if @ticket.latitude_arrived.present? && @ticket.longitude_arrived.present? || @ticket.latitude_end_work.present? && @ticket.longitude_end_work.present? %>
+  <div class="bg-white rounded-xl shadow-lg p-6">
+    <h3 class="text-lg font-semibold text-gray-900 border-b pb-3 mb-4">Ubicación del Agente</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <% if @ticket.latitude_arrived.present? && @ticket.longitude_arrived.present? %>
+        <div>
+          <h4 class="text-md font-medium text-gray-800 mb-2">📍 Punto de llegada</h4>
+          <iframe
+            src="https://www.google.com/maps?q=<%= @ticket.latitude_arrived %>,<%= @ticket.longitude_arrived %>&hl=es&z=16&output=embed"
+            width="100%"
+            height="300"
+            style="border:0; border-radius: 0.75rem;"
+            allowfullscreen=""
+            loading="lazy">
+          </iframe>
+        </div>
+      <% end %>
+
+      <% if @ticket.latitude_end_work.present? && @ticket.longitude_end_work.present? %>
+        <div>
+          <h4 class="text-md font-medium text-gray-800 mb-2">🏁 Punto de finalización</h4>
+          <iframe
+            src="https://www.google.com/maps?q=<%= @ticket.latitude_end_work %>,<%= @ticket.longitude_end_work %>&hl=es&z=16&output=embed"
+            width="100%"
+            height="300"
+            style="border:0; border-radius: 0.75rem;"
+            allowfullscreen=""
+            loading="lazy">
+          </iframe>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
            <!--  Tarjeta de Productos y Materiales -->
       <div class="bg-white rounded-xl shadow-lg p-6">
         <h3 class="text-lg font-semibold text-gray-900 mb-4">Productos y Materiales Utilizados</h3>

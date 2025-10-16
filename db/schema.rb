@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_07_142535) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_16_164747) do
+  create_table "jwt_denylists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "jti"
+    t.datetime "exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jti"], name: "index_jwt_denylists_on_jti"
+  end
+
   create_table "location_groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "description"
     t.datetime "created_at", null: false
@@ -116,10 +124,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_07_142535) do
     t.datetime "end_service_date"
     t.float "total_hour_service"
     t.text "technical_observation"
-    t.decimal "longitude_arrived", precision: 10
-    t.decimal "latitude_arrived", precision: 10
-    t.decimal "longitude_end_work", precision: 10
-    t.decimal "latitude_end_work", precision: 10
+    t.decimal "longitude_arrived", precision: 10, scale: 6
+    t.decimal "latitude_arrived", precision: 10, scale: 6
+    t.decimal "longitude_end_work", precision: 10, scale: 6
+    t.decimal "latitude_end_work", precision: 10, scale: 6
     t.decimal "cost", precision: 10
     t.bigint "team_id", null: false
     t.bigint "status_id", null: false
